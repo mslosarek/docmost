@@ -13,13 +13,18 @@ services:
     restart: unless-stopped
     volumes:
       - docmost:/app/data/storage
-      - ./rds-ca-bundle.pem:/app/rds-ca-bundle.pem
-
+    configs:
+      - source: rds_cert
+        target: /app/rds-ca-bundle.pem
   redis:
     image: redis:7.2-alpine
     restart: unless-stopped
     volumes:
       - redis_data:/data
+
+configs:
+  rds_cert:
+    file: rds-ca-bundle.pem
 
 volumes:
   docmost:
