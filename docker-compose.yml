@@ -8,12 +8,12 @@ services:
       APP_SECRET: ${APP_SECRET}
       DATABASE_URL: ${DATABASE_URL}
       REDIS_URL: "redis://redis:6379"
-      NODE_TLS_REJECT_UNAUTHORIZED: ${NODE_TLS_REJECT_UNAUTHORIZED:-0}
     ports:
       - "${PORT:-3000}:3000"
     restart: unless-stopped
     volumes:
       - docmost:/app/data/storage
+      - ./rds-ca-bundle.pem:/app/rds-ca-bundle.pem
 
   redis:
     image: redis:7.2-alpine
